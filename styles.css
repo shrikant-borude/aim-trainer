@@ -1,0 +1,44 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #d1d0c5;
+}
+
+body {
+    background-color: rgb(35, 35, 35);
+    color: #d1d0c5;
+    font-family: monospace;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(237, 237, 237, 0.182);
+    font-size: 1.1rem;
+}
+
+.right-header {
+    display: flex;
+}
+
+.right-header .signup {
+    margin-left: 20px;
+}
+
+main {
+    margin-top : 15vh;
+}
+
+main .canvas{
+    width: 75vw;
+    height: 60vh;
+    margin: auto;
+    background-color: rgba(237, 237, 237, 0.182);
+    text-align: center;
+    align-content: center;
+}
