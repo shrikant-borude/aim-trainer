@@ -3,8 +3,8 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="styles.css" rel="stylesheet">
-        <script src="script.js"></script>
+        <link href="flicking.css" rel="stylesheet">
+        <script src="flicking.js"></script>
         <title>Aim Trainer</title>
     </head>
     <body>
@@ -20,8 +20,10 @@
             </div>
         </nav>
         <main>
-            <div class="canvas" style="font-size: large">
-                click to start
+            <p class="clickto" style="text-align: center;">click to start</p>
+            <div class="canvas">
+                <!-- <img id="target" src="target-image.png" alt="target" width="100" style="border-radius: 50px;"> -->
+                 <p id="target"></p>
             </div>
             <p id="rtime" style="font-size: 100px; text-align: center;">0ms</p>
         </main>
