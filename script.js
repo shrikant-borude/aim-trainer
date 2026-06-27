@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const canvas = document.querySelector('.canvas');
     canvas.style.backgroundColor = "#0000ff";
-
+    let rt = 0;
+    let n = 5;
+    let avg = 0;
+    let attempts = 0;
+    const array = []; 
     canvas.onclick = function reactionTime() {
         let eventFlag = false;
         canvas.style.backgroundColor = "#ff0000";        
@@ -16,14 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
         canvas.onclick = function () { 
             eventFlag = true;
         };
-
+        
         setTimeout(function() {
+            
             if (eventFlag) {
                 canvas.style.backgroundColor = "#0000ff";
                 canvas.innerHTML = "too early! :(<br>click to keep going";
                 canvas.onclick = reactionTime;
                 return;
             }
+            attempts++;
             canvas.style.backgroundColor = "#00ff00";
             canvas.style.color = "#ffffff"
             canvas.innerHTML = 'click!';
@@ -34,10 +40,24 @@ document.addEventListener('DOMContentLoaded', function() {
             let rtime = setInterval(function() {
                 let elapsedTime = performance.now() - startTime;
                 document.querySelector("#rtime").innerHTML = `${elapsedTime.toFixed(0)}ms`;
+                rt = elapsedTime;
             }, 1);
 
             canvas.onclick = function() {
                 clearInterval(rtime);
+                array[attempts] = rt;
+                if (attempts % 5 == 0) {
+                    avg = 0; 
+                    for (let i = 1; i <= n; i++) {
+                        avg += Number(array[i]);
+                    }
+                    avg = (avg / n).toFixed(0);
+                    canvas.style.backgroundColor = "blue";
+                    canvas.innerHTML = `average: ${avg}ms<br>click to keep going`;
+                    attempts = attempts % 5;
+                    canvas.onclick = reactionTime;
+                    return;
+                }
                 canvas.style.backgroundColor = "blue";
                 canvas.innerHTML = "click to keep going";
                 canvas.onclick = reactionTime;

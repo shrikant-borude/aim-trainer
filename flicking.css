@@ -72,3 +72,9 @@ main .canvas #target {
     margin-right: auto;
     border-radius: 50px;
 }
+
+/* main .scores {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+} */
