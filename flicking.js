@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const textEle = document.querySelector('.clickto');
     target.onclick = changePosition;
 
-    const maxX = 1152 - 100;
-    const maxY = 420.95 - 102.25;
+    const maxX = 1047.27 - 100;
+    const maxY = 382.68 - 102.25;
 
     let rtime;
     let noOfTarget = 0;
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 noOfTarget = 0;
                 lagTimes = [];
                 avgrt = 0;
-                textEle.innerHTML = `click to start again`;
+                textEle.innerHTML = `click the target to start again`;
                 target.style.marginLeft = "auto";
                 target.style.marginRight = "auto";
                 target.style.marginTop = "0";

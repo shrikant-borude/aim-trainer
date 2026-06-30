@@ -3,8 +3,8 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="flicking.css" rel="stylesheet">
-        <script src="flicking.js"></script>
+        <link href="clickspeed.css" rel="stylesheet">
+        <script src="clickspeed.js"></script>
         <title>Aim Trainer</title>
     </head>
     <body>
@@ -21,14 +21,12 @@
             </div>
         </nav>
         <main>
-            <p class="clickto" style="text-align: center;">click the target to start</p>
+            <p class="clickto" style="text-align: center;">click to start</p>
             <div class="canvas">
-                <!-- <img id="target" src="target-image.png" alt="target" width="100" style="border-radius: 50px;"> -->
-                <p id="target"></p>
+                <div id="reset" style="-webkit-user-select:none;user-select:none;" unselectable="on" onselectstart="return false;" onmousedown="return false;">try again</div>
+                <!-- <button id="reset" style="background-color: rgba(237, 237, 237, 0.216); border: none; color: #d1d0c5; font-family: monospace;">try again</button> -->
             </div>
-            <p id="rtime" style="font-size: 100px; text-align: center;"></p>
-            <!-- <ul class="scores">
-            </ul> -->
+            <p id="timer" style="font-size: 100px; text-align: center;">0s</p>
         </main>
     </body>
 </html>
