@@ -57,7 +57,6 @@ nav {
     border-radius: 5px;
 }
 
-
 .right-header {
     display: flex;
     align-items: center;
@@ -71,7 +70,8 @@ main {
     margin-top : 15vh;
 }
 
-main .canvas{
+main #canvas{
+    position: relative;
     width: 75vw;
     height: 60vh;
     margin: auto;
@@ -80,9 +80,26 @@ main .canvas{
     text-align: center;
 }
 
-main .canvas #reset{
+main #canvas .targets{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+    margin: 0px;
+}
+
+main #canvas #play {
+    font-family: monospace;
     color: #d1d0c5;
     background-color: rgba(237, 237, 237, 0.216);
-    padding: 5px;
-    border-radius: 5px;
+    border: none;
 }
+
+/* main .scores {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+} */

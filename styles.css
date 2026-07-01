@@ -50,6 +50,13 @@ nav {
     border-radius: 5px;
 }
 
+.mid-header .precision {
+    margin-left: 20px;
+    padding: 5px;
+    background-color: rgba(237, 237, 237, 0.216);
+    border-radius: 5px;
+}
+
 .right-header {
     display: flex;
     align-items: center;
