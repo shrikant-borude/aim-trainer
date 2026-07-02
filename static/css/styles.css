@@ -1,3 +1,4 @@
+/* Common */
 * {
     margin: 0px;
     box-sizing: border-box;
@@ -57,7 +58,6 @@ nav {
     border-radius: 5px;
 }
 
-
 .right-header {
     display: flex;
     align-items: center;
@@ -66,6 +66,8 @@ nav {
 .right-header .signup {
     margin-left: 20px;
 }
+
+/* Reaction Time Test */
 
 main {
     margin-top : 15vh;
@@ -76,13 +78,58 @@ main .canvas{
     height: 60vh;
     margin: auto;
     background-color: rgba(237, 237, 237, 0.182);
-    align-content: center;
     text-align: center;
+    align-content: center;
 }
+
+
+/* Flicking */
+
+main .canvas #target {
+    width: 100px;
+    height: 102.25px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+}
+
+
+/* Click Speed Test */
 
 main .canvas #reset{
     color: #d1d0c5;
     background-color: rgba(237, 237, 237, 0.216);
     padding: 5px;
     border-radius: 5px;
+}
+
+/* Precision */
+
+main #canvas{
+    position: relative;
+    width: 75vw;
+    height: 60vh;
+    margin: auto;
+    background-color: rgba(237, 237, 237, 0.182);
+    align-content: center;
+    text-align: center;
+}
+
+main #canvas .targets{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+    margin: 0px;
+}
+
+main #canvas #play {
+    font-family: monospace;
+    color: #d1d0c5;
+    background-color: rgba(237, 237, 237, 0.216);
+    border: none;
 }
