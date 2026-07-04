@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function reload() {
-    const canvas = document.querySelector('.canvas');
+    const canvas = document.querySelector('#canvas');
     const count = document.querySelector('.clickto');
     let counter = 0;
     let gameOver = false;

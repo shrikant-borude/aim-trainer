@@ -31,27 +31,7 @@ nav {
     display: flex;
 }
 
-.mid-header .flick {
-    margin-left: 20px;
-    padding: 5px;
-    background-color: rgba(237, 237, 237, 0.216);
-    border-radius: 5px;
-}
-
-.mid-header .rtt {
-    padding: 5px;
-    background-color: rgba(237, 237, 237, 0.216);
-    border-radius: 5px;
-}
-
-.mid-header .clickps {
-    margin-left: 20px;
-    padding: 5px;
-    background-color: rgba(237, 237, 237, 0.216);
-    border-radius: 5px;
-}
-
-.mid-header .precision {
+.mid-header [class] {
     margin-left: 20px;
     padding: 5px;
     background-color: rgba(237, 237, 237, 0.216);
@@ -73,39 +53,6 @@ main {
     margin-top : 15vh;
 }
 
-main .canvas{
-    width: 75vw;
-    height: 60vh;
-    margin: auto;
-    background-color: rgba(237, 237, 237, 0.182);
-    text-align: center;
-    align-content: center;
-}
-
-
-/* Flicking */
-
-main .canvas #target {
-    width: 100px;
-    height: 102.25px;
-    background-color: white;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 50px;
-}
-
-
-/* Click Speed Test */
-
-main .canvas #reset{
-    color: #d1d0c5;
-    background-color: rgba(237, 237, 237, 0.216);
-    padding: 5px;
-    border-radius: 5px;
-}
-
-/* Precision */
-
 main #canvas{
     position: relative;
     width: 75vw;
@@ -115,6 +62,34 @@ main #canvas{
     align-content: center;
     text-align: center;
 }
+
+/* Flicking */
+
+main #canvas #target {
+    position: absolute;
+    width: 100px;
+    height: 102.25px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+
+    left: 50%; 
+    top: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+
+/* Click Speed Test */
+
+main #canvas #reset{
+    color: #d1d0c5;
+    background-color: rgba(237, 237, 237, 0.216);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Precision */
 
 main #canvas .targets{
     position: absolute;

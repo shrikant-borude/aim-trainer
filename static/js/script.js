@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    const canvas = document.querySelector('.canvas');
+    const canvas = document.querySelector('#canvas');
     canvas.style.backgroundColor = "#0000ff";
     let rt = 0;
     let n = 5;

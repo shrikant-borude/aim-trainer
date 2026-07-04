@@ -2,10 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     
     const target = document.querySelector('#target');
     const textEle = document.querySelector('.clickto');
+
     target.onclick = changePosition;
 
-    const maxX = 1047.27 - 100;
-    const maxY = 382.68 - 102.25;
+    const maxX = 1152 - 100;
+    const maxY = 420.68 - 102.25;
 
     let rtime;
     let noOfTarget = 0;
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let avgrt = 0;
     let lagTimes = []; 
     function changePosition() {
+        document.querySelector('#canvas').style.alignContent = "start";
         document.querySelector("#rtime").innerHTML = ``;
         clearInterval(rtime);
         textEle.innerHTML = `remaining: ${30 - noOfTarget}`;
@@ -34,22 +36,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 lagTimes = [];
                 avgrt = 0;
                 textEle.innerHTML = `click the target to start again`;
-                target.style.marginLeft = "auto";
-                target.style.marginRight = "auto";
-                target.style.marginTop = "0";
-                target.style.marginBottom = "0";
+                target.style.left = "50%";
+                target.style.top = "50%";
+                target.style.transform = "translate(-50%, -50%)";
                 target.style.display = "block";
                 target.onclick = changePosition; 
                 return;
             } 
         }
         
-        positionX = Math.random() * maxX;
-        positionY = Math.random() * maxY;
+        const positionX = Math.random() * maxX;
+        const positionY = Math.random() * maxY;
         
         setTimeout(function() {
-            target.style.marginLeft = `${positionX}px`;
-            target.style.marginTop = `${positionY}px`;
+            target.style.transform = "none";
+            target.style.left = `${positionX}px`;
+            target.style.top = `${positionY}px`;
             target.style.display = "inline-block";
 
             let startTime = performance.now();        
