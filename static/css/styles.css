@@ -116,3 +116,35 @@ main #canvas #play {
     border: none;
     border-radius: 5px;
 }
+
+/* Login / Signup Page */
+
+main form {
+    text-align: center;
+}
+
+input {
+    font-family: monospace;
+    font-size: 1.05rem;
+    width: 250px;
+    margin: 10px;
+    background-color: #45494d;   
+    color: #dcd7ba;
+    border: none;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+main form button {
+    font-size: 1.05rem;
+    font-family: monospace;
+    width: 250px;
+    margin: 10px;
+    background-color: #45494d;   
+    color: #dcd7ba;
+    border: none;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
