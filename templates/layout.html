@@ -8,12 +8,12 @@
     </head>
     <body>
         <nav>
-            <div class="left-header"><a href="index.html">aim trainer</a></div>
+            <div class="left-header"><a href="/">aim trainer</a></div>
             <div class="mid-header">
                 <div class="rtt"><a href="/">reaction time test</a></div>
-                <div class="flick"><a href="/flicking">flicking</a></div>
-                <div class="clickps"><a href="/clickspeed">clicks per second</a></div>
-                <div class="precision"><a href="/precision">precision</a></div>
+                <div class="flick"><a href="{{ url_for('flicking') }}">flicking</a></div>
+                <div class="clickps"><a href="{{ url_for('clickspeed') }}">clicks per second</a></div>
+                <div class="precision"><a href="{{ url_for('precision') }}">precision</a></div>
             </div>
             <div class="right-header">
                 <div class="login"><a href="/">login</a></div>
