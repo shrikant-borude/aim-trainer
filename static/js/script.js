@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     const canvas = document.querySelector('#canvas');
+    
     canvas.style.backgroundColor = "#0000ff";
     let rt = 0;
     let n = 5;
     let avg = 0;
     let attempts = 0;
     const array = []; 
+    
     canvas.onclick = function reactionTime() {
         let eventFlag = false;
         canvas.style.backgroundColor = "#ff0000";        

@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     
     const target = document.querySelector('#target');
-    const textEle = document.querySelector('.clickto');
+    const textEle = document.querySelector('#canvasText');
+    const canvas = document.querySelector('#canvas');
+    const reactionTime = document.querySelector('#rtime');
 
     target.onclick = changePosition;
 
@@ -13,25 +15,26 @@ document.addEventListener('DOMContentLoaded', function () {
     let n = 30;
     let lagTime = 0;
     let avgrt = 0;
-    let lagTimes = []; 
+    let lagTimes = [];
+     
     function changePosition() {
-        document.querySelector('#canvas').style.alignContent = "start";
-        document.querySelector("#rtime").innerHTML = ``;
+        canvas.style.alignContent = "start";
+        reactionTime.innerHTML = ``;
         clearInterval(rtime);
-        textEle.innerHTML = `remaining: ${30 - noOfTarget}`;
+        textEle.innerHTML = `remaining: ${n - noOfTarget}`;
         target.style.display = "none";
 
         if (noOfTarget > 0 && noOfTarget <= n) {
             // document.querySelector(`.score${noOfTarget}`).innerHTML = `${lagTime}ms`;
             lagTimes[noOfTarget] = lagTime;
-            if (noOfTarget == n) {
+            if (noOfTarget === n) {
                 clearInterval(rtime);
                 document.querySelector('#rtime').innerHTML = '0ms';
                 for (let i = 1; i < n + 1; i++) {
                     avgrt += Number(lagTimes[i]);
                 }
                 avgrt = (avgrt / n).toFixed(0);
-                document.querySelector("#rtime").innerHTML = `average: ${avgrt}ms`;
+                reactionTime.innerHTML = `average: ${avgrt}ms`;
                 noOfTarget = 0;
                 lagTimes = [];
                 avgrt = 0;
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let elapsedTime;
             rtime = setInterval(function() {
                 elapsedTime = performance.now() - startTime;
-                // document.querySelector("#rtime").innerHTML = `${elapsedTime.toFixed(0)}ms`;
+                // reactionTime.innerHTML = `${elapsedTime.toFixed(0)}ms`;
                 lagTime = elapsedTime.toFixed(0);
             }, 1);
 

@@ -1,70 +1,89 @@
-document.addEventListener("DOMContentLoaded", function loaded() {
+document.addEventListener("DOMContentLoaded", function () {
     
     const canvas = document.querySelector('#canvas');
     const playButton = document.querySelector('#play');
     const displayScore = document.querySelector('#score');
+    const targets = document.querySelectorAll(".targets");
 
-    document.querySelectorAll(".targets").forEach(target => {
+    targets.forEach(target => {
         target.style.display = "none";
     }); 
 
-    const maxX = 1047.27 - 10;
+    const maxX = 1152 - 10;
     const maxY = 420.95 - 10;
 
     let score = 0;
     let misses = 0;
 
+    // Removing magic numbers
+    const MAX_MISSES = 3;
+    const TARGET_COUNT = 5;
+
     let counter;
     let inCounter;
 
-    playButton.onclick = () => {            
-        document.querySelectorAll(".targets").forEach(target => {
+    function randomPosition(target) {
+        const positionX = Math.random() * maxX;
+        const positionY = Math.random() * maxY;
+
+        target.style.transform = `translate(${positionX}px, ${positionY}px)`; 
+    }
+
+    document.addEventListener('click', event => {
+        if(event.target.className === "targets") {
+            event.target.style.display = "none";
+            score++;
+            displayScore.innerHTML = `score: ${score}`;
+        }
+    });
+
+    playButton.onclick = function startGame() {
+        score = 0; 
+        misses = 0;            
+        targets.forEach(target => {
+
             canvas.style.textAlign = "start" 
             canvas.style.alignContent = "normal" 
             playButton.style.display = "none";
-            displayScore.innerHTML = `score: ${score}`;
+            
             counter = 2;
             inCounter = 1;
+            
+            displayScore.innerHTML = `score: ${score}`;
+            
+            randomPosition(target);    
 
-            const positionX = Math.random() * maxX;
-            const positionY = Math.random() * maxY;
-
-            target.style.transform = `translate(${positionX}px, ${positionY}px)`;     
-        });
-
-        document.addEventListener('click', event => {
-            if(event.target.className === "targets") {
-                event.target.style.display = "none";
-                score++;
-                displayScore.innerHTML = `score: ${score}`;
-            }
         });
 
         document.querySelector('#target1').style.display = "inline-block"
         const gameLoop = setInterval(() => {
-                if (counter > 5) {
-                    if (inCounter > 5) {
+                if (counter > TARGET_COUNT) {
+                    if (inCounter > TARGET_COUNT) {
                         inCounter = 1;
                     }
-                    const differenttarget = document.querySelector(`#target${inCounter}`);
-                    if (differenttarget.style.display === "inline-block") {
+                    const currentTarget = document.querySelector(`#target${inCounter}`);
+                    if (currentTarget.style.display === "inline-block") {
                         misses++;
-                        if (misses === 3) {
+                        if (misses === MAX_MISSES) {
                             clearInterval(gameLoop);
-                            document.querySelectorAll('.targets').forEach(difftarget => {
-                                difftarget.style.display = "none";
+
+                            targets.forEach(target => {
+                                target.style.display = "none";
                             });
+                            
                             document.querySelector('#score').innerHTML = `you lose!<br>final score: ${score}`;
+                            
                             playButton.style.display = "inline-block";
                             playButton.innerHTML = 'play again';
                             canvas.style.textAlign = "center" 
                             canvas.style.alignContent = "center" 
-                            playButton.onclick = loaded;
+                            
+                            playButton.onclick = startGame;
                             return;
                         }
                     }
-                    document.querySelector(`#target${inCounter}`).style.transform = `translate(${Math.random() * maxX}px, ${Math.random() * maxY}px)`;
-                    document.querySelector(`#target${inCounter}`).style.display = "inline-block";
+                    currentTarget.style.transform = `translate(${Math.random() * maxX}px, ${Math.random() * maxY}px)`;
+                    currentTarget.style.display = "inline-block";
                     inCounter++;
                 }
                 document.querySelector(`#target${counter}`).style.display = "inline-block";
