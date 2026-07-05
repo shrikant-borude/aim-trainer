@@ -1,2 +1,5 @@
 flask
 flask-session
+helpers 
+cs50
+Werkzeug

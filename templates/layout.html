@@ -4,6 +4,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/e8746f7eed.js" crossorigin="anonymous"></script>
         <title>Aim Trainer</title>
     </head>
     <body>
@@ -16,8 +17,13 @@
                 <div class="precision"><a href="{{ url_for('precision') }}">precision</a></div>
             </div>
             <div class="right-header">
-                <div class="login"><a href="{{ url_for('login') }}">login</a></div>
-                <div class="signup"><a href="{{ url_for('signup') }}">sign up</a></div>
+                {% if session["user_id"] %}
+                    <div class="user" style="margin-right: 20px;">{{ session["user_name"] }} <i class="fa-solid fa-circle-user"></i></div>  
+                    <div class="logout"><a href="{{ url_for('logout') }}">log out</a></div>        
+                {% else %}
+                    <div class="login"><a href="{{ url_for('login') }}">login</a></div>
+                    <div class="signup"><a href="{{ url_for('signup') }}">sign up</a></div>
+                {% endif %}
             </div>
         </nav>
         <main>

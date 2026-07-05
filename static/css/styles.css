@@ -148,3 +148,10 @@ main form button {
     padding: 10px;
     border-radius: 10px;
 }
+
+/* Error page */
+
+main #error {
+    text-align: center;
+    font-size: 2rem;
+}
