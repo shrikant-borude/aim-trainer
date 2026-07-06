@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function reload() {
     const count = document.querySelector('#canvasText');
     const resetBtn = document.querySelector('#reset');
     const timer = document.querySelector("#timer");
+    const submit = document.querySelector('#submit');
+
+    submit.style.display = "none";
 
     let counter = 0;
     let gameOver = false;
@@ -23,9 +26,45 @@ document.addEventListener('DOMContentLoaded', function reload() {
             
             if (elapsedTime >= GAME_TIME) {
                 clearInterval(gameTimer);
+                
+                const average = (counter / (GAME_TIME / 1000)).toFixed(2);
+                const score = counter;
+                count.innerHTML = `your clicks per second: ${average}`;
         
-                count.innerHTML = `your clicks per second: ${(counter / (GAME_TIME / 1000)).toFixed(2)}`;
-        
+                fetch("/login_status")
+                .then(response => response.json())
+                .then(data => {
+                        if (data["logged_in"]) {
+                            submit.style.display = "block";
+                            document.addEventListener('click', event => {
+                                if (event.target.id === "submit") {
+                                    fetch("/save_stats", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify ({
+                                            mode_id: 3,
+                                            accuracy: null,
+                                            average: average,
+                                            score: score
+                                        })
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            location.reload();
+                                        }
+                                    })
+                                    .catch(error => console.error(error));
+                                } else if (event.target.id === "reset") {
+                                    submit.style.display = "none";
+                                }
+                            })
+                        }
+                    }
+                )
+
                 gameOver = true;
                 counter = 0;
                 resetBtn.style.display = "inline-block";

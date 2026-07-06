@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const playButton = document.querySelector('#play');
     const displayScore = document.querySelector('#score');
     const targets = document.querySelectorAll(".targets");
+    const submit = document.querySelector('#submit');
+
+    submit.style.display = "none";
 
     targets.forEach(target => {
         target.style.display = "none";
@@ -76,9 +79,43 @@ document.addEventListener("DOMContentLoaded", function () {
                             targets.forEach(target => {
                                 target.style.display = "none";
                             });
+                            const accuracy = ((score / clickCounter) * 100).toFixed(2);
+                            document.querySelector('#score').innerHTML = `game over!<br>accuracy: ${accuracy}%<br>final score: ${score}`;
                             
-                            document.querySelector('#score').innerHTML = `game over!<br>accuracy: ${((score / clickCounter) * 100).toFixed(2)}%<br>final score: ${score}`;
-                            
+                            fetch("/login_status")
+                            .then(response => response.json())
+                            .then(data => {
+                                    if (data["logged_in"]) {
+                                        submit.style.display = "block";
+                                        document.addEventListener('click', event => {
+                                            if (event.target.id === "submit") {
+                                                fetch("/save_stats", {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json"
+                                                    },
+                                                    body: JSON.stringify ({
+                                                        mode_id: 4,
+                                                        accuracy: accuracy,
+                                                        average: null,
+                                                        score: score
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        location.reload();
+                                                    }
+                                                })
+                                                .catch(error => console.error(error));
+                                            } else if (event.target.id === "play") {
+                                                submit.style.display = "none";
+                                            }
+                                        })
+                                    }
+                                }
+                            )
+
                             playButton.style.display = "inline-block";
                             playButton.innerHTML = 'play again';
                             canvas.style.textAlign = "center" 

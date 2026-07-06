@@ -1,5 +1,5 @@
 from cs50 import SQL
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -14,19 +14,31 @@ db = SQL("sqlite:///database.db")
 
 @app.route("/")
 def index():
-    return render_template("index.html")
-
-@app.route("/clickspeed")
-def clickspeed():
-    return render_template("clickspeed.html")
+    statistics = None
+    if "user_id" in session:
+        statistics = db.execute("SELECT average FROM user_stats WHERE user_id = ? AND mode_id = ?", session["user_id"], 1)
+    return render_template("index.html", statistics=statistics)
 
 @app.route("/flicking")
 def flicking():
-    return render_template("flicking.html")
+    statistics = None
+    if "user_id" in session:
+        statistics = db.execute("SELECT accuracy, average FROM user_stats WHERE user_id = ? AND mode_id = ?", session["user_id"], 2)
+    return render_template("flicking.html", statistics=statistics)
+
+@app.route("/clickspeed")
+def clickspeed():
+    statistics = None
+    if "user_id" in session:
+        statistics = db.execute("SELECT average, score FROM user_stats WHERE user_id = ? AND mode_id = ?", session["user_id"], 3)
+    return render_template("clickspeed.html", statistics=statistics)
 
 @app.route("/precision")
 def precision():
-    return render_template("precision.html")
+    statistics = None
+    if "user_id" in session:
+        statistics = db.execute("SELECT accuracy, score FROM user_stats WHERE user_id = ? AND mode_id = ?", session["user_id"], 4)
+    return render_template("precision.html", statistics=statistics)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -91,6 +103,28 @@ def signup():
     except ValueError:
         return render_template("error.html", message="username already exists")
     return redirect("/login")
+
+@app.route("/save_stats", methods=["POST"])
+def save_stats():
+    # requesting a json file from the client
+    data = request.get_json() 
+
+    mode_id = data["mode_id"]
+    accuracy = data["accuracy"]
+    average = data["average"]
+    score = data["score"]
+
+    db.execute(
+        "INSERT INTO user_stats (mode_id, user_id, accuracy, average, score) VALUES (?, ?, ?, ?, ?)", mode_id, session["user_id"], accuracy, average, score
+        )
+    
+    return jsonify({"success": True})
+
+@app.route("/login_status")
+def login_status():
+    return {
+        "logged_in": "user_id" in session 
+    }
 
 
 # mainly for testing purposes if its (app.py as import app) imported then it does not run

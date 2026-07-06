@@ -14,6 +14,7 @@ body {
     background-color: #323437;   
     color: #dcd7ba;
     font-family: monospace;
+    margin-bottom: 40px;
 }
 
 nav {
@@ -54,6 +55,31 @@ nav {
     margin-left: 20px;
 }
 
+#submit {
+    font-size: 1.05rem;
+    font-family: monospace;
+    width: 200px;
+    margin: 10px auto;
+    background-color: #45494d;   
+    color: #dcd7ba;
+    border: none;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+table td, th {
+    padding: 10px;
+    font-size: 1.1rem;
+    width: 300px;
+    border-bottom: 1px solid rgb(125, 125, 125);
+}
+
+.table {
+    padding-top: 40px;
+    width: fit-content;
+    margin: auto;
+}
 /* Reaction Time Test */
 
 main {

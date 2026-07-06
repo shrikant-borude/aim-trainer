@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const textEle = document.querySelector('#canvasText');
     const canvas = document.querySelector('#canvas');
     const reactionTime = document.querySelector('#rtime');
+    const submit = document.querySelector('#submit');
+
+    submit.style.display = "none";
 
     let clickCounter = 0;
     let gameStarted = false;
@@ -29,6 +32,19 @@ document.addEventListener('DOMContentLoaded', function () {
     let lagTimes = [];
     let startTime;
 
+    function resetGame() {
+        noOfTarget = 0;
+        lagTimes.length = 0;
+        avgrt = 0;
+        clickCounter = 0;
+        startTime = 0;
+        gameStarted = false;
+        textEle.innerHTML = `click the target to start again`;
+        target.style.left = "50%";
+        target.style.top = "50%";
+        target.style.transform = "translate(-50%, -50%)";
+        target.style.display = "block";
+    }
      
     function changePosition() {
         gameStarted = true;
@@ -45,24 +61,44 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 0; i < n; i++) {
                     avgrt += Number(lagTimes[i]);
                 }
-                avgrt = (avgrt / n).toFixed(0);
-                console.log(`n: ${n}`)
-                console.log(`noOfTarget: ${noOfTarget}`)
-                console.log(`clickCounter: ${clickCounter}`)
-                console.log(`length: ${lagTimes}`)
+                const average = (avgrt / n).toFixed(0);
+                const accuracy = ((lagTimes.length / clickCounter) * 100).toFixed(2);
+                reactionTime.innerHTML = `average: ${average}ms<br>accuracy: ${accuracy}%`;
                 
-                reactionTime.innerHTML = `average: ${avgrt}ms<br>accuracy: ${((lagTimes.length / clickCounter) * 100).toFixed(2)}%`;
-                noOfTarget = 0;
-                lagTimes.length = 0;
-                avgrt = 0;
-                clickCounter = 0;
-                startTime = 0;
-                gameStarted = false;
-                textEle.innerHTML = `click the target to start again`;
-                target.style.left = "50%";
-                target.style.top = "50%";
-                target.style.transform = "translate(-50%, -50%)";
-                target.style.display = "block";
+                fetch("/login_status")
+                .then(response => response.json())
+                .then(data => {
+                        if (data["logged_in"]) {
+                            submit.style.display = "block";
+                            document.addEventListener('click', event => {
+                                if (event.target.id === "submit") {
+                                    fetch("/save_stats", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify ({
+                                            mode_id: 2,
+                                            accuracy: accuracy,
+                                            average: average,
+                                            score: null
+                                        })
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            location.reload();
+                                        }
+                                    })
+                                    .catch(error => console.error(error));
+                                } else if (event.target.id === "target") {
+                                    submit.style.display = "none";
+                                }
+                            })
+                        }
+                    }
+                )
+                resetGame();
                 return;
             } 
         }

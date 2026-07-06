@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     const canvas = document.querySelector('#canvas');
+    const submit = document.querySelector('#submit');
+
+    submit.style.display = "none";
     
     canvas.style.backgroundColor = "#0000ff";
     let rt = 0;
@@ -53,9 +56,44 @@ document.addEventListener('DOMContentLoaded', function() {
                     for (let i = 1; i <= n; i++) {
                         avg += Number(array[i]);
                     }
-                    avg = (avg / n).toFixed(0);
+                    const average = (avg / n).toFixed(0);
                     canvas.style.backgroundColor = "blue";
-                    canvas.innerHTML = `average: ${avg}ms<br>click to keep going`;
+                    canvas.innerHTML = `average: ${average}ms<br>click to keep going`;
+                
+                    fetch("/login_status")
+                    .then(response => response.json())
+                    .then(data => {
+                            if (data["logged_in"]) {
+                                submit.style.display = "block";
+                                document.addEventListener('click', event => {
+                                    if (event.target.id === "submit") {
+                                        fetch("/save_stats", {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify ({
+                                                mode_id: 1,
+                                                accuracy: null,
+                                                average: average,
+                                                score: null
+                                            })
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                location.reload();
+                                            }
+                                        })
+                                        .catch(error => console.error(error));
+                                    } else if (event.target.id === "canvas") {
+                                        submit.style.display = "none";
+                                    }
+                                })
+                            }
+                        }
+                    )
+
                     attempts = attempts % 5;
                     canvas.onclick = reactionTime;
                     return;

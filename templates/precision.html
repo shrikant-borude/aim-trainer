@@ -12,6 +12,25 @@
         <p class="targets" id="target5"></p>
     </div>
     <p id="rtime" style="font-size: 100px; text-align: center;"></p>
+    <button id="submit">save score</button>
+    
+    {% if session.user_id %}
+        <div class="table">
+            <div id="tableText" style="font-size: 1.2rem;">{{ session.user_name }}'s previous results:</div>
+            <table>
+                <tr>
+                    <th>accuracy</th>
+                    <th>score</th>
+                </tr>
+                {% for stat in statistics %}
+                    <tr align="right">
+                        <td>{{ stat.accuracy }}%</td>
+                        <td>{{ stat.score }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
     
 {% endblock %}
 

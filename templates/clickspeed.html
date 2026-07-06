@@ -7,6 +7,25 @@
         <div id="reset" style="-webkit-user-select:none;user-select:none;" unselectable="on" onselectstart="return false;" onmousedown="return false;">try again</div>
     </div>
     <p id="timer" style="font-size: 100px; text-align: center;">0s</p>
+    <button id="submit">save score</button>
+    
+    {% if session.user_id %}
+        <div class="table">
+            <div id="tableText" style="font-size: 1.2rem;">{{ session.user_name }}'s previous results:</div>
+            <table>
+                <tr>
+                    <th>average</th>
+                    <th>score</th>
+                </tr>
+                {% for stat in statistics %}
+                    <tr align="right">
+                        <td>{{ stat.average }}</td>
+                        <td>{{ stat.score }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 
 {% endblock %}
 
