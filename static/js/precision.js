@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let score = 0;
     let misses = 0;
+    let gameStarted = false;
+    let clickCounter = 0;
 
     // Removing magic numbers
     const MAX_MISSES = 3;
@@ -30,14 +32,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.addEventListener('click', event => {
-        if(event.target.className === "targets") {
+        if (event.target.className === "targets") {
             event.target.style.display = "none";
             score++;
             displayScore.innerHTML = `score: ${score}`;
+            clickCounter++;
+        } else if (event.target.id === "canvas" && gameStarted === true) {
+            clickCounter++;
         }
     });
 
     playButton.onclick = function startGame() {
+        gameStarted = true;
         score = 0; 
         misses = 0;            
         targets.forEach(target => {
@@ -71,13 +77,15 @@ document.addEventListener("DOMContentLoaded", function () {
                                 target.style.display = "none";
                             });
                             
-                            document.querySelector('#score').innerHTML = `you lose!<br>final score: ${score}`;
+                            document.querySelector('#score').innerHTML = `game over!<br>accuracy: ${((score / clickCounter) * 100).toFixed(2)}%<br>final score: ${score}`;
                             
                             playButton.style.display = "inline-block";
                             playButton.innerHTML = 'play again';
                             canvas.style.textAlign = "center" 
                             canvas.style.alignContent = "center" 
-                            
+                            clickCounter = 0;
+                            gameStarted = false;
+
                             playButton.onclick = startGame;
                             return;
                         }
