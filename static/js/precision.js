@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
         target.style.display = "none";
     }); 
 
-    const maxX = 1152 - 10;
-    const maxY = 420.95 - 10;
+    const maxX = canvas.offsetWidth - 10;
+    const maxY = canvas.offsetHeight - 10;
 
     let score = 0;
     let misses = 0;

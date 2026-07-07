@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    const maxX = 1152 - 100;
-    const maxY = 420.68 - 102.25;
+    const maxX = canvas.offsetWidth - 100;
+    const maxY = canvas.offsetHeight - 100;
 
     let noOfTarget = 0;
     let n = 30;
