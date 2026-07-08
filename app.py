@@ -17,7 +17,7 @@ def index():
     statistics = None
     if "user_id" in session:
         statistics = db.execute("SELECT average FROM user_stats WHERE user_id = ? AND mode_id = ?", session["user_id"], 1)
-    return render_template("index.html", statistics=statistics)
+    return render_template("reaction.html", statistics=statistics)
 
 @app.route("/flicking")
 def flicking():
